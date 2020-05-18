@@ -1,23 +1,41 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <router-view/>
+    <header>头部</header>
+    <main><router-view></router-view></main>
+    <footer><FooterNav/></footer>
   </div>
 </template>
 
 <script>
+import FooterNav from 'components/footer/FooterNav'
 export default {
-  name: 'App'
+  name: 'App',
+  components:{
+    FooterNav
+  }
 }
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style lang="scss">
+html,body,div{
+  padding: 0;
+  margin: 0;
+}
+#app{
+header{
+  height: 4rem;
+};
+main{
+  width: 16rem;
+height: 20rem;
+background-color: #faaa;
+};
+footer{
+  position:fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 3rem;
+}
 }
 </style>
