@@ -3,7 +3,7 @@
     <div class="sum">总数
       {{total}}
     </div>
-    <div class="game">
+    <div class="game" ref="div" @touchstart='touchBegin' @touchend='touchGo'>
       <div class="chess" v-for="item in arr" :key='item.id'>
         {{item.num}}
       </div>
@@ -18,13 +18,11 @@ export default {
     name:'Game2048',
     data(){
       return{
-        arr:[
-          {
-            num:'',
-            order:''
-          }
-        ],
-        total:0
+        arr:[],
+        total:0,
+        //触摸开始
+        beginX:0,
+        beginY:0
       }
     },
     created(){
@@ -40,7 +38,44 @@ export default {
         game.randomInsert()
         this.arr=game.arr
         this.total=game.sum
-        
+             
+      },
+
+      //触摸开始事件
+      touchBegin(e){
+        let beginX=e.touches[0].clientX
+        let beginY=e.touches[0].clientY
+        this.beginX=beginX
+        this.beginY=beginY
+      },
+
+      //触摸结束事件
+      touchGo(e){
+        // console.log(e.targetTouches)
+        // console.log(e.changedTouches)
+        let moveX=e.changedTouches[0].clientX
+        let moveY=e.changedTouches[0].clientY
+
+        //滑动矢量判断方向
+        let distanceX=moveX-this.beginX
+        let distanceY=moveY-this.beginY
+
+        if(Math.abs(distanceX)>Math.abs(distanceY) && distanceX>0){
+         console.log('往右滑动');
+        }else if(Math.abs(distanceX)>Math.abs(distanceY) && distanceX<0){
+         console.log('往左滑动');
+        }else if(Math.abs(distanceX)<Math.abs(distanceY) && distanceY<0){
+         console.log('往上滑动');
+        }else if(Math.abs(distanceX)<Math.abs(distanceY) && distanceY>0){
+          console.log('往下滑动');
+        }else{
+          console.log('点击未滑动');
+        }
+      },
+
+      //左滑操作
+      slideLeft(){
+        window.setTimeout()
       }
     }
 }
